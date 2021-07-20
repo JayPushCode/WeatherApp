@@ -1,0 +1,65 @@
+#headertext {
+    text-align: center;
+    color:white;
+    background: rgb(0,157,230);
+    background: linear-gradient(123deg, rgba(0,157,230,1) 45%, rgba(12,45,167,1) 100%);
+    height: 10vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#contents {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 20px;
+    background: lightblue
+    
+}
+
+#left-contents {
+width: 20%;
+height: max-content;
+padding: 20px;
+float: left;
+flex: 1 1 0;
+}
+
+#right-contents {
+margin-left: auto;
+width: 80%;
+height: max-content;
+padding: 20px;
+float: right;
+flex: 4 1 0;
+}
+
+#current-city {
+    border: 5px;
+    border-color: black;
+    margin: 20px;
+}
+
+.current-details {
+    border: black;
+    border: 5px;
+    font-weight: bold;
+}
+
+.forecastcard {
+    padding: 20px;
+    border: 5px;
+    background: rgb(33, 33, 80);
+    color: white;
+    flex: 1 1 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 20px;
+}
+
+#fiveday {
+        border: 5px;
+        display: flex;
+}

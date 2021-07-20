@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+<!-- CSS Assets -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+</head>
+<body>
+<!-- Main HTML -->
+<header id="headertext"> <h1> Weather Dashboard </h1></header>
+<div id="contents">
+<!-- Left Part of the page -->
+<aside id="left-contents"> 
+<!-- Search bar, text, and button -->
+    <div id="search-container">
+        <h1> Search for a City: </h1>
+        <input id="searchbox" placeholder="Search for a City Here...">
+        <button id="search-button" type="submit"> Search </button>
+    </div>
+
+    <!-- Past Searh History Container -->
+    <div id="past-search-history">
+
+    </div>
+</aside>
+ <!-- Right part of the page -->
+<main id="right-contents">
+
+    <!-- Current City Box -->
+<div id="current-city">
+<h1> <span id = "current_cityname"> <span id="current_date"></span> </h1>
+
+    <div id="current-weather-icon"></div>
+    
+    <div class="current-details"> Temp: <span id="current-temp"></span></div>
+    <div class="current-details"> Wind: <span id="current-wind"></span></div>
+    <div class="current-details"> Humidity: <span id="current-hum"></span></div>
+    <div class="current-details"> UV Index: <span id="current-uv"></span></div>
+      
+</div>
+<h2> 5-Day Forcast: </h2>
+<div id="fiveday">
+    <card id="5day1" class="forecastcard">
+        <div id="current-weather-icon"></div>
+        <div class="current-details"> Temp: <span id="current-temp"></span></div>
+        <div class="current-details"> Wind: <span id="current-wind"></span></div>
+        <div class="current-details"> Humidity: <span id="current-hum"></span></div>
+        <div class="current-details"> UV Index: <span id="current-uv"></span></div>
+    </card>
+    <card id="5day2" class="forecastcard">
+        <div id="current-weather-icon"></div>
+        <div class="current-details"> Temp: <span id="current-temp"></span></div>
+        <div class="current-details"> Wind: <span id="current-wind"></span></div>
+        <div class="current-details"> Humidity: <span id="current-hum"></span></div>
+        <div class="current-details"> UV Index: <span id="current-uv"></span></div>
+    </card>
+    <card id="5day3" class="forecastcard">
+        <div id="current-weather-icon"></div>
+        <div class="current-details"> Temp: <span id="current-temp"></span></div>
+        <div class="current-details"> Wind: <span id="current-wind"></span></div>
+        <div class="current-details"> Humidity: <span id="current-hum"></span></div>
+        <div class="current-details"> UV Index: <span id="current-uv"></span></div>
+    </card>
+    <card id="5day4" class="forecastcard">
+        <div id="current-weather-icon"></div>
+        <div class="current-details"> Temp: <span id="current-temp"></span></div>
+        <div class="current-details"> Wind: <span id="current-wind"></span></div>
+        <div class="current-details"> Humidity: <span id="current-hum"></span></div>
+        <div class="current-details"> UV Index: <span id="current-uv"></span></div>
+    </card>
+    <card id="5day5" class="forecastcard">
+        <div id="current-weather-icon"></div>
+        <div class="current-details"> Temp: <span id="current-temp"></span></div>
+        <div class="current-details"> Wind: <span id="current-wind"></span></div>
+        <div class="current-details"> Humidity: <span id="current-hum"></span></div>
+        <div class="current-details"> UV Index: <span id="current-uv"></span></div>
+    </card>
+</div>
+</main>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="./assets/javascript/script.js"></script>
+</body>
+</html>
