@@ -15,53 +15,63 @@
 
 
 
-// Global Parameters
-const currentCity = document.getElementById("searchbox")
-const submitBtn = document.getElementById("search-button")
+// Current Day Parameters
 
-const currentWeatherEl = document.getElementById("current-weather-icon")
-const currentCityEl = document.getElementById("current_cityname")
-const currentCityDate = document.getElementById("current_date")
+let currentCity = document.getElementById("searchbox")
+let submitBtn = document.getElementById("search-button")
 
-const currentCityTemp = document.getElementById("current-temp")
-const currentCityWind = document.getElementById("current-wind")
-const currentCityHum = document.getElementById("current-hum")
-const currentCityUV = document.getElementById("current-uv")
+let currentWeatherEl = document.getElementById("current-weather-icon")
+let currentCityEl = document.getElementById("current_cityname")
+let currentCityDate = document.getElementById("current_date")
 
+let currentCityTemp = document.getElementById("current-temp")
+let currentCityWind = document.getElementById("current-wind")
+let currentCityHum = document.getElementById("current-hum")
+let currentCityUV = document.getElementById("current-uv")
 
+let currentCityDiv = document.getElementById("current-city")
 
+// Funciton to generate JSON for Current City Values from Search Box
+submitBtn.onclick = function() {
+    fetch("https://api.openweathermap.org/data/2.5/weather?q=" + currentCity.value + "&appid=023907d7951fd687a134c03414302124")
+    .then(response => response.json())
+    .then(data =>  {
+        // Current Weather Fetch Requests ////////////////////////////////////////////////////////////////
+        currentWeatherEl.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
+        const tempconv = function(temp) {temp-273.15*9/5+32}
+        currentCityTemp.textContent = ((((data.main.temp-273.15)*9)/5)+32).toFixed() + "° F";
+        currentCityWind.textContent = data.wind.speed + " MPH";
+        currentCityHum.textContent = data.main.humidity + "%";
+        currentCityEl.textContent = data.name;
+        currentCityDate.textContent = "   " + moment().format("dddd, MMMM Do YYYY, h:mm:ss: a")
+        
 
-// Funciton to generate JSON from Search Box
+        console.log("First Fetch");
+        console.log(data);
 
-submitBtn.addEventListener("click", function() {
-fetch("https://api.openweathermap.org/data/2.5/weather?q=" + currentCity.value + "&appid=023907d7951fd687a134c03414302124"
-)
-.then((response) => response.json())
-.then((response) => {
-    let currentWeatherEl = response.data.weather[0].icon;
-    currentWeatherEl.setAttribute("src", "https://openweathermap.org/img/wn/" + weatherPic + "@2x.png");
-    currentWeatherEl.setAttribute("alt", response.data.weather[0].description);
+        let lat = data.coord.lat;
+        let lon = data.coord.lon;
+        let UVQueryURL = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + lat + "&lon=" + lon + "&appid=023907d7951fd687a134c03414302124" + "&cnt=1";
 
-    currentCityTemp.innerHTML = "Temperature: " + k2f(response.data.main.temp) + " &#176F";
-    currentCityHum.innerHTML = "Humidity: " + response.data.main.humidity + "%";
-    currentCityWind.innerHTML = "Wind Speed: " + response.data.wind.speed + " MPH";
-    let lat = response.data.coord.lat;
-    let lon = response.data.coord.lon;
-    let UVQueryURL = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + lat + "&lon=" + lon + "&appid=023907d7951fd687a134c03414302124" + "&cnt=1";
-    axios.get(UVQueryURL)
-        .then(function(response) {
-            UVIndex.innerHTML = response.data[0].value;
-            currentCityUV.innerHTML = "UV Index: ";
-            currentCityUV.append(UVIndex);
-        });})
-    });
+        fetch(UVQueryURL)
+            .then(response => response.json())
+            .then(data => {
+                currentCityUV.textContent = data[0].value;
+            })
+        fetch("https://api.openweathermap.org/data/2.5/forecast?q="+currentCity.value+"&appid=023907d7951fd687a134c03414302124")
+            .then(response => response.json())
+            .then(data => {
+                console.log("Second Fetch")
+                console.log(data) 
 
-
-    
-//get coordinates via city name
-// async function getCoordinates(cityName, apiKey) {
-//     var consCoords = "https://api.openweathermap.org/data/2.5/forecast?units=imperial&q=" + cityName +
-//         "&appid=" + apiKey;
-//     const response = await fetch(consCoords).then(response => {
-//         if (response.ok) {
-//             return response.json();
+                var fivedayforecast = document.getElementById("fiveday");
+                
+            })
+            
+            
+        //     }
+                
+                
+                
+        //        
+    })};
