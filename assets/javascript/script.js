@@ -65,45 +65,65 @@ submitBtn.onclick = function() {
 
                 var fivedayforecast = document.getElementById("fiveday");
                 
+                if (fivedayforecast.hasChildNodes()) {
+                    // If forecase already present
+                    for (let i=0; i<5; i++) {
 
-                for (let i=0; i<5; i++) {
-                // console.log(data.list[i].main.temp)
+                    let change = document.getElementById("forecastcard"[i])
 
-                let container = document.createElement("div");
-                container.classList.add("forecastcard");
-                
-                // Icon
-                let icon = document.createElement('img')
-                icon.src = "http://openweathermap.org/img/wn/" + data.list[i].weather[0].icon + "@2x.png"
-                container.appendChild(icon);
+                        let icon = document.getElementsByName("img")
+                        icon.src = "http://openweathermap.org/img/wn/" + data.list[i].weather[0].icon + "@2x.png"
+                        change.appendChild(icon);
+        
+        
+                        // Temperature 
+                        let temp = document.getElementsByName('div');
+                        temp.textContent = "Temp: " + ((((data.list[i].main.temp-273.15)*9)/5)+32).toFixed() + "° F";
+                        change.appendChild(temp);
+        
+                        // Wind Speed
+                        let wind = document.getElementsByName('div');
+                        wind.textContent = "Wind: " + data.list[i].wind.speed + " MPH";
+                        change.appendChild(wind);
+        
+                        // Humidity
+                        let hum = document.getElementsByName('div');
+                        hum.textContent = "Humidity: " + data.list[i].main.humidity + " %";
+                        change.appendChild(hum);
+        
+                        fivedayforecast.appendChild(change)
+                        }
 
+                } else {
+                    for (let i=0; i<5; i++) {
+                    let container = document.createElement("div");
+                    container.setAttribute.add("id","forecastcard"[i]);
+                    
+                    // Icon
+                    let icon = document.createElement('img')
+                    icon.src = "http://openweathermap.org/img/wn/" + data.list[i].weather[0].icon + "@2x.png"
+                    container.appendChild(icon);
 
-                // Temperature 
-                let temp = document.createElement('div');
-                temp.classList.add("current-details");
-                temp.textContent = "Temp: " + ((((data.list[i].main.temp-273.15)*9)/5)+32).toFixed() + "° F";
-                container.appendChild(temp);
+                    // Temperature 
+                    let temp = document.createElement('div');
+                    temp.classList.add("current-details");
+                    temp.textContent = "Temp: " + ((((data.list[i].main.temp-273.15)*9)/5)+32).toFixed() + "° F";
+                    container.appendChild(temp);
 
-                // Wind Speed
-                let wind = document.createElement('div');
-                wind.classList.add("current-details");
-                wind.textContent = "Wind: " + data.list[i].wind.speed + " MPH";
-                container.appendChild(wind);
+                    // Wind Speed
+                    let wind = document.createElement('div');
+                    wind.classList.add("current-details");
+                    wind.textContent = "Wind: " + data.list[i].wind.speed + " MPH";
+                    container.appendChild(wind);
 
-                // Humidity
-                let hum = document.createElement('div');
-                hum.classList.add("current-details");
-                hum.textContent = "Humidity: " + data.list[i].main.humidity + " %";
-                container.appendChild(hum);
+                    // Humidity
+                    let hum = document.createElement('div');
+                    hum.classList.add("current-details");
+                    hum.textContent = "Humidity: " + data.list[i].main.humidity + " %";
+                    container.appendChild(hum);
 
-                // // UV Index
-                // let uv = document.createElement('div');
-                // uv.classList.add("current-details");
-                // uv.textContent = "UV Index: " + data.list[i].main.uv
-                // container.appendChild(uv)
-
-
-                fivedayforecast.appendChild(container)
+                    fivedayforecast.appendChild(container)
+                    }
                 }
             })
             
