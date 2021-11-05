@@ -31,8 +31,26 @@ let currentCityUV = document.getElementById("current-uv")
 
 let currentCityDiv = document.getElementById("current-city")
 
+let history = [];
+let historyContainer = document.getElementById('past-search-history')
+
 // Funciton to generate JSON for Current City Values from Search Box
 submitBtn.onclick = function() {
+     // Saving Buttons of past Searches
+
+    document.getElementById('past-search-history').innerHTML = " "
+
+    history.unshift(currentCity.value);
+
+    for (let i=0; i<history.length; i++) {
+        let card = document.createElement('button');
+        card.classList.add("historyBtn")
+        card.textContent = history[i];
+        historyContainer.appendChild(card)
+    }
+
+    console.log(history)
+    
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" + currentCity.value + "&appid=023907d7951fd687a134c03414302124")
     .then(response => response.json())
     .then(data =>  {
@@ -102,5 +120,39 @@ submitBtn.onclick = function() {
             })
     })}
     
-    
+// Saving past searches
+
+let historyBtn = document.getElementsByClassName('historyBtn')
+
+historyBtn.onclick = function () {
+    console.log("test worked!")
+}
+
+
+
+// function addCityHistory () {
+
+// }
+
+// function storageCheck() {
+
+//   var storageCities = JSON.parse(localStorage.getItem("searchHistory"));
+//   if (storageCities !== null) {
+//     cityHistory = storageCities;
+//   }
+//   renderButtons();
+// }
+
+// var newButton;
+// function renderButtons() {
+//   for (let i = 0; i < cityHistory.length; i++) {
+//     var cityName = cityHistory[i];
+
+//     newButton.attr("data-name", cityName);
+//     newButton.text(cityName);
+
+//     $("#past-search-buttons").append(newButton);
+//   }
+// }
+
     ;
