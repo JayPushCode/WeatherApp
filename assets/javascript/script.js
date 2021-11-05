@@ -1,21 +1,4 @@
-// WHEN I search for a city
-// THEN I am presented with current and future conditions for that city and that city is added to the search history
-// WHEN I view current weather conditions for that city
-// THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
-// WHEN I view the UV index
-// THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
-// WHEN I view future weather conditions for that city
-// THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
-// WHEN I click on a city in the search history
-// THEN I am again presented with current and future conditions for that city
-
-// https://api.openweathermap.org/data/2.5/onecall?lat=35.7721&lon=-78.6386&exclude=minutely,hourly,daily&appid=023907d7951fd687a134c03414302124
-
-// https://api.openweathermap.org/data/2.5/weather?q=raleigh&appid=023907d7951fd687a134c03414302124
-
-
-
-// Current Day Parameters
+// Variable Parameters
 
 let currentCity = document.getElementById("searchbox")
 let submitBtn = document.getElementById("search-button")
@@ -34,23 +17,25 @@ let currentCityDiv = document.getElementById("current-city")
 let history = [];
 let historyContainer = document.getElementById('past-search-history')
 
+let resetCity = function(city){currentCity.value = city; submitBtn.click();}
+
 // Funciton to generate JSON for Current City Values from Search Box
 submitBtn.onclick = function() {
-     // Saving Buttons of past Searches
-
+     // Clears past history of Buttons
     document.getElementById('past-search-history').innerHTML = " "
 
     history.unshift(currentCity.value);
-
+    // Generating Past Search Buttons 
     for (let i=0; i<history.length; i++) {
         let card = document.createElement('button');
         card.classList.add("historyBtn")
         card.textContent = history[i];
+        card.setAttribute("onclick", ("resetCity('" + card.textContent +"')"))
         historyContainer.appendChild(card)
     }
-
     console.log(history)
     
+    // Fetch Request for Current Weather Forecast
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" + currentCity.value + "&appid=023907d7951fd687a134c03414302124")
     .then(response => response.json())
     .then(data =>  {
@@ -61,10 +46,6 @@ submitBtn.onclick = function() {
         currentCityHum.textContent = data.main.humidity + "%";
         currentCityEl.textContent = data.name;
         currentCityDate.textContent = "   " + moment().format("dddd, MMMM Do YYYY, h:mm:ss a")
-        
-
-        console.log("First Fetch");
-        console.log(data);
 
         let lat = data.coord.lat;
         let lon = data.coord.lon;
@@ -75,18 +56,17 @@ submitBtn.onclick = function() {
             .then(data => {
                 currentCityUV.textContent = data[0].value;
             })
+        // Fetch Request for 5 Day Weather Forecast
         fetch("https://api.openweathermap.org/data/2.5/forecast?q="+currentCity.value+"&appid=023907d7951fd687a134c03414302124")
             .then(response => response.json())
             .then(data => {
-                console.log("Second Fetch")
-                console.log(data) 
 
                 var fivedayforecast = document.getElementById("fiveday");
 
                 // If there's already card present, clear.
                     fivedayforecast.innerHTML = " ";
 
-                // For loop to generate cards
+                // For loop to generate cards five day forecast
                     for (let i=0; i<5; i++) {
                     let container = document.createElement("div");
                     container.classList.add("forecastcard");
@@ -119,40 +99,3 @@ submitBtn.onclick = function() {
                 
             })
     })}
-    
-// Saving past searches
-
-let historyBtn = document.getElementsByClassName('historyBtn')
-
-historyBtn.onclick = function () {
-    console.log("test worked!")
-}
-
-
-
-// function addCityHistory () {
-
-// }
-
-// function storageCheck() {
-
-//   var storageCities = JSON.parse(localStorage.getItem("searchHistory"));
-//   if (storageCities !== null) {
-//     cityHistory = storageCities;
-//   }
-//   renderButtons();
-// }
-
-// var newButton;
-// function renderButtons() {
-//   for (let i = 0; i < cityHistory.length; i++) {
-//     var cityName = cityHistory[i];
-
-//     newButton.attr("data-name", cityName);
-//     newButton.text(cityName);
-
-//     $("#past-search-buttons").append(newButton);
-//   }
-// }
-
-    ;

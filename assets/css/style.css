@@ -85,7 +85,7 @@ flex-direction: column;
 }
 
 .historyBtn {
-    flex: 1 1 0
+    flex: 1 1 0;
     border: 5px;
     text-align: center;
     vertical-align: auto;
