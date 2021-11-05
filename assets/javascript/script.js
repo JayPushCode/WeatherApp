@@ -64,40 +64,14 @@ submitBtn.onclick = function() {
                 console.log(data) 
 
                 var fivedayforecast = document.getElementById("fiveday");
-                
-                if (fivedayforecast.hasChildNodes()) {
-                    // If forecase already present
-                    for (let i=0; i<5; i++) {
 
-                    let change = document.getElementById("forecastcard"[i])
+                // If there's already card present, clear.
+                    fivedayforecast.innerHTML = " ";
 
-                        let icon = document.getElementsByName("img")
-                        icon.src = "http://openweathermap.org/img/wn/" + data.list[i].weather[0].icon + "@2x.png"
-                        change.appendChild(icon);
-        
-        
-                        // Temperature 
-                        let temp = document.getElementsByName('div');
-                        temp.textContent = "Temp: " + ((((data.list[i].main.temp-273.15)*9)/5)+32).toFixed() + "° F";
-                        change.appendChild(temp);
-        
-                        // Wind Speed
-                        let wind = document.getElementsByName('div');
-                        wind.textContent = "Wind: " + data.list[i].wind.speed + " MPH";
-                        change.appendChild(wind);
-        
-                        // Humidity
-                        let hum = document.getElementsByName('div');
-                        hum.textContent = "Humidity: " + data.list[i].main.humidity + " %";
-                        change.appendChild(hum);
-        
-                        fivedayforecast.appendChild(change)
-                        }
-
-                } else {
+                // For loop to generate cards
                     for (let i=0; i<5; i++) {
                     let container = document.createElement("div");
-                    container.setAttribute.add("id","forecastcard"[i]);
+                    container.classList.add("forecastcard");
                     
                     // Icon
                     let icon = document.createElement('img')
@@ -124,13 +98,9 @@ submitBtn.onclick = function() {
 
                     fivedayforecast.appendChild(container)
                     }
-                }
+                
             })
-            
-            
-        //     }
-                
-                
-                
-        //        
-    })};
+    })}
+    
+    
+    ;
